@@ -18,7 +18,7 @@ $config['db']['dbname'] = 'exampleapp';
 $app = new \Slim\App(['settings' => $config]);
 
 //配置路由，将用户在浏览器请求的地址，转化为用户请求的控制器和方法
-$app->get('/{controller}/{action}',function($request,$response,$args){
+$app->map(['GET','POST'],'/{controller}/{action}',function($request,$response,$args){
     //var_export($args);  /*array ( 'controller' => 'todo', 'action' => 'index', )*/
 
     $controllerClass = '\app\controllers\\' . ucfirst($args['controller']) . 'Controller';
