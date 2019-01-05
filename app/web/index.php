@@ -7,15 +7,8 @@
 //加载路由
 require '../../vendor/autoload.php';
 
-$dsnconfig = require '../config/base.php';
-
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
-
-$config['db']['host']   = 'localhost';
-$config['db']['user']   = 'user';
-$config['db']['pass']   = 'password';
-$config['db']['dbname'] = 'exampleapp';
 
 $app = new \Slim\App(['settings' => $config]);
 
