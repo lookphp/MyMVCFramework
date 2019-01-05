@@ -8,6 +8,8 @@
 
 namespace app\controllers;
 
+use Pheasant;
+use app\models\TodoModel;
 
 class TodoController extends BaseController
 {
@@ -29,5 +31,14 @@ class TodoController extends BaseController
     public function delete($id)
     {
         echo $id;
+    }
+
+    public function init()
+    {
+        global $dsnconfig;
+        Pheasant::setup($dsnconfig['dsn']);
+        $migrator = new Pheasant\Migrate\Migrator();
+        $migrator->initialize(TodoModel::schema(),'todo');
+        echo 'migrator done !';
     }
 }

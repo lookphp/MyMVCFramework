@@ -7,6 +7,8 @@
 //加载路由
 require '../../vendor/autoload.php';
 
+$dsnconfig = require '../config/base.php';
+
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
