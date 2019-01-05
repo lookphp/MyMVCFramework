@@ -24,9 +24,20 @@ $app->map(['GET','POST'],'/{controller}/{action}',function($request,$response,$a
     $controllerClass = '\app\controllers\\' . ucfirst($args['controller']) . 'Controller';
     $action = $args['action'];
 
-    $controller = new $controllerClass();   //new某一个控制器的类
-//    var_export($controller); // new app\controllers\TodoController::__set_state(array( ))
-    $controller->$action(); //访问控制器类下的某一个方法
+    if(!class_exists($controllerClass))
+    {
+        exit($controllerClass . ' Class not found !');
+    }
+
+    if(!method_exists($controllerClass,$action))
+    {
+        exit($action . ' Method not found !');
+    }
+    else
+    {
+        $controller = new $controllerClass();   //new某一个控制器的类
+        $controller->$action();                 //访问控制器类下的某一个方法
+    }
 });
 
 $app->run();
