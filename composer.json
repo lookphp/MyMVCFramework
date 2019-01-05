@@ -1,0 +1,7 @@
+{
+    "require": {
+        "lox/pheasant": "^1.3",
+        "latte/latte": "^2.4",
+        "altorouter/altorouter": "^1.2"
+    }
+}
