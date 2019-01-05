@@ -21,13 +21,13 @@ class TodoController extends BaseController
 
     }
 
-    public function edit()
+    public function edit($id)
     {
-
+        echo $id;
     }
 
-    public function delete()
+    public function delete($id)
     {
-
+        echo $id;
     }
 }
