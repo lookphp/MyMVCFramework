@@ -8,7 +8,7 @@
 
 namespace app\controllers;
 
-use app\models\TodoModel;
+use app\models\Todo;
 
 class TodoController extends BaseController
 {
@@ -19,23 +19,38 @@ class TodoController extends BaseController
 
     public function create()
     {
-
+        $model = new Todo();
+        $model->title = '第三条todo';
+        $model->status = 0;
+        $result = $model->save();
+        if($result){
+            echo 'saved successfully';
+        }
     }
 
     public function edit($id)
     {
-        echo $id;
+        $model = Todo::byId($id);
+        $model->title = '第一条todo被edit修改了';
+        $result = $model->save();
+        if($result){
+            echo 'edit successfully';
+        }
     }
 
     public function delete($id)
     {
-        echo $id;
+        $model = Todo::byId($id);
+        $result = $model->delete($id);
+        if($result){
+            echo 'delete successfully';
+        }
     }
 
     public function init()
     {
         $migrator = new \Pheasant\Migrate\Migrator();
-        $migrator->initialize(TodoModel::schema(),'todo');
+        $migrator->initialize(Todo::schema(),'todo');
         echo 'migrator done !';
     }
 }

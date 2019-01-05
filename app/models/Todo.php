@@ -10,7 +10,7 @@ namespace app\models;
 
 use Pheasant\Types;
 
-class TodoModel extends BaseModel
+class Todo extends BaseModel
 {
     public function properties()
     {
