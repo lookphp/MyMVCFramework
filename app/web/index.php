@@ -18,11 +18,23 @@ $config['db']['dbname'] = 'exampleapp';
 $app = new \Slim\App(['settings' => $config]);
 
 //配置路由，将用户在浏览器请求的地址，转化为用户请求的控制器和方法
-$app->map(['GET','POST'],'/{controller}/{action}',function($request,$response,$args){
-    //var_export($args);  /*array ( 'controller' => 'todo', 'action' => 'index', )*/
+$app->map(['GET','POST'],'/{controller}/{action}/{params:.*}',function($request,$response,$args){
+//    var_export($args);  /*array ( 'controller' => 'todo', 'action' => 'index', )*/
+    runAction($args);
+});
 
+$app->map(['GET','POST'],'/{controller}/{action}',function($request,$response,$args){
+    runAction($args);
+});
+
+$app->run();
+
+
+function runAction($args)
+{
     $controllerClass = '\app\controllers\\' . ucfirst($args['controller']) . 'Controller';
     $action = $args['action'];
+    $params = isset($args['params']) ? explode('/',$args['params']) : [];
 
     if(!class_exists($controllerClass))
     {
@@ -33,11 +45,14 @@ $app->map(['GET','POST'],'/{controller}/{action}',function($request,$response,$a
     {
         exit($action . ' Method not found !');
     }
+
+    $controller = new $controllerClass();   //new某一个控制器的类
+    if(isset($params))
+    {
+        $controller->$action(...$params);   //访问控制器类下的某一个带参数的方法
+    }
     else
     {
-        $controller = new $controllerClass();   //new某一个控制器的类
-        $controller->$action();                 //访问控制器类下的某一个方法
+        $controller->$action();  //访问控制器类下的某一个不带参数的方法
     }
-});
-
-$app->run();
+}
