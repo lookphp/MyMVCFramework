@@ -17,17 +17,16 @@ $config['db']['dbname'] = 'exampleapp';
 
 $app = new \Slim\App(['settings' => $config]);
 
-$app->get('/',function(){
-    echo 'hello';
-});
+//配置路由，将用户在浏览器请求的地址，转化为用户请求的控制器和方法
+$app->get('/{controller}/{action}',function($request,$response,$args){
+    //var_export($args);  /*array ( 'controller' => 'todo', 'action' => 'index', )*/
 
-$app->get('/hello/{name}', function ($request, $response, $args) {
-    return $response->getBody()->write("Hello, " . $args['name']);
-});
+    $controllerClass = '\app\controllers\\' . ucfirst($args['controller']) . 'Controller';
+    $action = $args['action'];
 
-$app->get('/todo/index',function($request,$response,$args){
-    $todo = new \app\controllers\TodoController();
-    $todo->index();
+    $controller = new $controllerClass();   //new某一个控制器的类
+//    var_export($controller); // new app\controllers\TodoController::__set_state(array( ))
+    $controller->$action(); //访问控制器类下的某一个方法
 });
 
 $app->run();
