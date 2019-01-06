@@ -4,6 +4,11 @@
 
 //todo 初始化系统市区
 
+define('APP_ROOT',dirname(__DIR__));
+define('SITE_URL','http://' . $_SERVER['HTTP_HOST'] . substr($_SERVER['PHP_SELF'],0,-10));
+
+date_default_timezone_set('Asia/Shanghai');
+
 //加载路由
 require '../../vendor/autoload.php';
 

@@ -14,7 +14,8 @@ class TodoController extends BaseController
 {
     public function index()
     {
-        echo 'hello index';
+        $model = Todo::all();
+        $this->render('todo/index',['todos'=>$model]);
     }
 
     public function create()
