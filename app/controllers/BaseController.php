@@ -53,7 +53,7 @@ class BaseController
 
     public function redirect($name)
     {
-        header('Location : ' . SITE_URL . '/' . $name);
+        header('Location:' . SITE_URL . '/' . $name);
         exit;
     }
 

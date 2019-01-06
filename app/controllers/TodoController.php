@@ -21,21 +21,21 @@ class TodoController extends BaseController
     public function create()
     {
         $model = new Todo();
-        $model->title = '第三条todo';
-        $model->status = 0;
+        $model->title = $_POST['title'];
+        $model->status = false;
         $result = $model->save();
         if($result){
-            echo 'saved successfully';
+            return $this->redirect('todo/index');
         }
     }
 
     public function edit($id)
     {
         $model = Todo::byId($id);
-        $model->title = '第一条todo被edit修改了';
+        $model->status = true;
         $result = $model->save();
         if($result){
-            echo 'edit successfully';
+            return $this->redirect('todo/index');
         }
     }
 
@@ -44,7 +44,7 @@ class TodoController extends BaseController
         $model = Todo::byId($id);
         $result = $model->delete($id);
         if($result){
-            echo 'delete successfully';
+            return $this->redirect('todo/index');
         }
     }
 
